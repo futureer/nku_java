@@ -11,25 +11,26 @@ public class MonthDate {
 		int year = calendar.get(Calendar.YEAR);
 		int month = calendar.get(Calendar.MONTH);
 		System.out.println(year + "Äê" + (month + 1) + "ÔÂ");
-
-		//set the first day of week according to 'weekName'
-		calendar.setFirstDayOfWeek(Calendar.SUNDAY);
-		String weekName = "Sun Mon Tue Wed Thu Fri Sat";
 		
+		// set the first day of week according to 'weekName'
+		calendar.setFirstDayOfWeek(Calendar.MONDAY);
+		String weekName = "Mon Tue Wed Thu Fri Sat Sun";
+
 		// get the days in a month, iterate begin at the first day of the month.
 		calendar.set(year, month, 1);
-		int firstWeekName = calendar.get(Calendar.DAY_OF_WEEK);
-		
+		// minus 1 means Monday is 1 day after Sunday, the default first day of a week.
+		int firstWeekName = (calendar.get(Calendar.DAY_OF_WEEK) - 1) % 7;
+
 		ArrayList<Integer> monthDays = new ArrayList<>();
 		while (calendar.get(Calendar.MONTH) == month) {
 			int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 			monthDays.add(dayOfMonth);
-			calendar.add(Calendar.HOUR, 24); //advance one day towards the date
+			calendar.add(Calendar.HOUR, 24); // advance one day towards the date
 		}
 
 		System.out.println(weekName);
 
-		// print whitespace before the start of the month to occupy the space. 
+		// print whitespace before the start of the month to occupy the space.
 		for (int i = 0; i < firstWeekName - 1; i++) {
 			System.out.print("    ");
 		}
